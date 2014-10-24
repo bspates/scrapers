@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "async": "latest",
+    "phantom": "0.6.6",
+    "phantomjs": "latest",
+    "underscore": "latest",
+    "underscore.string": "^2.3.3",
+    "coffee-script": "latest",
+    "shortid": "latest",
+    "express": "latest"
+  }
+}
