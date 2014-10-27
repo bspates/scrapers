@@ -3,7 +3,7 @@ async = require 'async'
 _ = require 'underscore'
 Scrape = require '../db/scrape'
 
-module.exports = class Scraper
+module.exports = class BrowserScraper
   options: 
     concurrency: 1 #TODO allow queue to pipeline requests to different browser instances based on action dependency
     wait: 2000
@@ -43,7 +43,7 @@ module.exports = class Scraper
 
       @ph.exit()
 
-  scrapeSite: (site, callback) ->
+  scrape: (site, callback) ->
     home = require './sites/' + site + '/home'
 
     scrape = new Scrape
