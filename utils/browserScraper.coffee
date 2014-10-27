@@ -65,7 +65,7 @@ module.exports = class BrowserScraper
           
     , callback
 
-  @handle: (err, callback) =>
+  handle: (err, callback) =>
     if callback
       if err
         callback(err)
@@ -75,7 +75,7 @@ module.exports = class BrowserScraper
     else
       throw err if err
 
-  @qlink: (href, callback) =>
+  qlink: (href, callback) =>
     return callback('href undefined') unless href
 
     if href.indexOf('http') < 0

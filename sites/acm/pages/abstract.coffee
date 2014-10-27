@@ -9,6 +9,12 @@ module.exports =
         return null
     , (result) ->
       if result
-        fs.appendFile 'results.txt', result.join('\n\n'), callback
+        Scrape.update 
+          _id: scraper.id
+        , 
+          $push:
+            pages:
+              name: 'abstract'
+              results: result.join('\n\n'), callback
       else 
         callback()
