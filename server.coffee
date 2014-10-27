@@ -1,11 +1,10 @@
 express = require 'express'
 bodyParser = require 'body-parser'
 path = require 'path'
-shortId = require 'shortid'
 mongoose = require 'mongoose'
 
 BrowserScaper = require './utils/browserScraper'
-
+Scrape = require './db/scrape'
 
 mongoose.connect process.env.DATABASE_URL
 
