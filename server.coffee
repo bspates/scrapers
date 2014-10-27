@@ -22,7 +22,7 @@ app.get '/', (req, res) ->
 app.get '/scrape/:site', (req, res) ->
   phantom.create "--web-security=no", "--ignore-ssl-errors=yes", (ph) =>
     scraper = new BrowserScraper(ph)
-    scraper.scrape req.param.site, (err, id) ->
+    scraper.scrape req.params.site, (err, id) ->
       if err
         res.json
           success: false
@@ -36,7 +36,7 @@ app.get '/scrape/:site', (req, res) ->
           message: ''
 
 app.get '/status/:id', (req, res) ->
-  Scrape.findById req.param.id, 'status', (err, scrape) ->
+  Scrape.findById req.params.id, 'status', (err, scrape) ->
     if err
       res.json
         success: false
@@ -49,7 +49,7 @@ app.get '/status/:id', (req, res) ->
         message: ''
 
 app.get '/results/:id', (req, res) ->
-  Scrape.findById req.param.id, 'status pages', (err, scrape) ->
+  Scrape.findById req.params.id, 'status pages', (err, scrape) ->
     if err
       res.json
         success: false
