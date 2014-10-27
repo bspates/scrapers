@@ -4,7 +4,7 @@ path = require 'path'
 mongoose = require 'mongoose'
 phantom = require 'phantom'
 
-BrowserScaper = require './utils/browserScraper'
+BrowserScraper = require './utils/browserScraper'
 Scrape = require './db/scrape'
 
 mongoose.connect process.env.DATABASE_URL
