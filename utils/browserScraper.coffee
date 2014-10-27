@@ -67,6 +67,8 @@ module.exports = class BrowserScraper
 
   handle: (err, callback) =>
     if callback
+      if typeof(callback) isnt 'function'
+        throw 'invalid type sent as callback: ' + callback
       if err
         callback(err)
         @requestQ.kill()

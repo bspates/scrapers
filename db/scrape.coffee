@@ -14,4 +14,4 @@ ScrapeSchema = new Schema
     results: String
   ]
 
-module.exports = mongoose.model 'Site', ScrapeSchema
+module.exports = mongoose.model 'Scrape', ScrapeSchema
