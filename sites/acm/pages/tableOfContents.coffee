@@ -14,7 +14,7 @@ module.exports =
             res.push element.getAttribute 'href'
           return res
         , (result) ->
-          _.each result, link 
+          _.each result, (link) -> 
             scraper.qlink link, abstract.callback
           callback()
       , 1000
