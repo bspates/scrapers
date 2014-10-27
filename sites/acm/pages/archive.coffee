@@ -1,3 +1,5 @@
+_ = require 'underscore'
+
 tableOfContents = require './tableOfContents'
 
 module.exports =
