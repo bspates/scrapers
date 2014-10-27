@@ -16,6 +16,7 @@ module.exports =
             pages:
               name: 'abstract'
               results: result
-        , callback
+        , (err) ->
+          callback err
       else 
         callback()
