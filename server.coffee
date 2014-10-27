@@ -2,6 +2,7 @@ express = require 'express'
 bodyParser = require 'body-parser'
 path = require 'path'
 mongoose = require 'mongoose'
+phantom = require 'phantom'
 
 BrowserScaper = require './utils/browserScraper'
 Scrape = require './db/scrape'
