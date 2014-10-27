@@ -1,4 +1,4 @@
-fs = require 'fs'
+Scrape = require '../../../db/scrape.coffee'
 
 module.exports =
   callback: (err, page, scraper, callback) ->

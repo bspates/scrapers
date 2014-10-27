@@ -7,6 +7,7 @@
     "underscore.string": "^2.3.3",
     "coffee-script": "latest",
     "shortid": "latest",
-    "express": "latest"
+    "express": "latest",
+    "mongoose": "latest"
   }
 }

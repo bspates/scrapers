@@ -1,17 +1,18 @@
 phantom = require 'phantom'
 async = require 'async'
 _ = require 'underscore'
+Scrape = require '../db/scrape'
 
 module.exports = class Scraper
   defaultOptions: 
-    concurrency: 1
+    concurrency: 1 #TODO allow queue to pipeline requests to different browser instances based on action dependency
     wait: 2000
   
   requestQ: null
   ph: null
-  requestQ: null
-
-  constructor: (ph, id, options) ->
+  id: null
+  
+  constructor: (ph, options) ->
     if options
       @options = _.extend @defaultOptions, options
 
@@ -33,11 +34,27 @@ module.exports = class Scraper
 
     @requestQ.drain = () =>
       console.log 'queue empty phantom exiting'
+      Scrape.update 
+        _id: scraper.id
+      , $set:
+          status: 'complete'
+      , (err, result) ->
+        console.log err
+
       @ph.exit()
 
-  scrapeSite: (site, output) ->
+  scrapeSite: (site, callback) ->
     home = require './sites/' + site + '/home'
-    @requestQ.push home
+
+    scrape = new Scrape
+      siteName: site
+
+    scrape.save (err, result) =>
+      return callback(err) if err
+      @requestQ.push home
+      @id = result._id
+      callback null, result._id
+
 
   includeMethods: (page, callback) ->
     page.evaluate () ->
