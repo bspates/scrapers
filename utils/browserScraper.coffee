@@ -8,10 +8,11 @@ module.exports = class Scraper
     concurrency: 1 #TODO allow queue to pipeline requests to different browser instances based on action dependency
     wait: 2000
   
+  options = null
   requestQ: null
   ph: null
   id: null
-  
+
   constructor: (ph, options) ->
     if options
       @options = _.extend @defaultOptions, options
