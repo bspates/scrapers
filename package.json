@@ -8,6 +8,7 @@
     "coffee-script": "latest",
     "shortid": "latest",
     "express": "latest",
-    "mongoose": "latest"
+    "mongoose": "latest",
+    "body-parser": "latest"
   }
 }
