@@ -12,6 +12,13 @@ mongoose.connect process.env.DATABASE_URL
 app = express()
 app.use bodyParser()
 
+
+app.get '/', (req, res) ->
+  res.json
+    success: true
+    results: {}
+    message: 'stub endpoint' 
+
 app.get '/scrape/:site', (req, res) ->
   phantom.create "--web-security=no", "--ignore-ssl-errors=yes", (ph) =>
     scraper = new BrowserScraper(ph)
