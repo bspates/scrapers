@@ -44,7 +44,7 @@ module.exports = class BrowserScraper
       @ph.exit()
 
   scrape: (site, callback) ->
-    home = require './sites/' + site + '/home'
+    home = require './sites/' + site + '/pages/home'
 
     scrape = new Scrape
       siteName: site
