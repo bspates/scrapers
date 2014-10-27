@@ -4,18 +4,17 @@ _ = require 'underscore'
 Scrape = require '../db/scrape'
 
 module.exports = class Scraper
-  defaultOptions: 
+  options: 
     concurrency: 1 #TODO allow queue to pipeline requests to different browser instances based on action dependency
     wait: 2000
   
-  options = null
   requestQ: null
   ph: null
   id: null
 
   constructor: (ph, options) ->
     if options
-      @options = _.extend @defaultOptions, options
+      @options = _.extend @options, options
 
     @ph = ph
 
