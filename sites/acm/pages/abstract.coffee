@@ -15,6 +15,7 @@ module.exports =
           $push:
             pages:
               name: 'abstract'
-              results: result.join('\n\n'), callback
+              results: result.join('\n\n')
+        , callback
       else 
         callback()
