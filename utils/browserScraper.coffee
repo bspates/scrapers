@@ -18,7 +18,7 @@ module.exports = class BrowserScraper
 
     @requestQ = async.queue (task, callback) => 
       setTimeout () =>
-        phantom.create "--web-security=no", "--ignore-ssl-errors=yes", (ph) ->
+        phantom.create "--web-security=no", "--ignore-ssl-errors=yes", (ph) =>
           ph.createPage (page) =>
             page.set 'onError', (msg, trace) ->
               console.log msg
