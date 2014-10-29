@@ -20,20 +20,19 @@ app.get '/', (req, res) ->
     message: 'stub endpoint' 
 
 app.get '/scrape/:site', (req, res) ->
-  phantom.create "--web-security=no", "--ignore-ssl-errors=yes", (ph) =>
-    scraper = new BrowserScraper(ph)
-    scraper.scrape req.params.site, (err, id) ->
-      if err
-        res.json
-          success: false
-          result: {}
-          message: err
-      else
-        res.json
-          success: true
-          result: 
-            id: id
-          message: ''
+  scraper = new BrowserScraper()
+  scraper.scrape req.params.site, (err, id) ->
+    if err
+      res.json
+        success: false
+        result: {}
+        message: err
+    else
+      res.json
+        success: true
+        result: 
+          id: id
+        message: ''
 
 app.get '/status/:id', (req, res) ->
   Scrape.findById req.params.id, 'status', (err, scrape) ->
