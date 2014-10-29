@@ -18,7 +18,7 @@ module.exports = class BrowserScraper
 
     @requestQ = async.queue (task, callback) => 
       setTimeout () =>
-        phantom.create "--web-security=no", "--ignore-ssl-errors=yes", "--load-images=false", (ph) =>
+        phantom.create "--web-security=no", "--ignore-ssl-errors=yes", (ph) ->
           ph.createPage (page) =>
             page.set 'onError', (msg, trace) ->
               console.log msg
@@ -26,11 +26,11 @@ module.exports = class BrowserScraper
               console.log task.url
               callback(status) if status isnt 'success'
               page.includeJs 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js', () =>
-              @includeMethods page, () =>
-                task.callback null, page, @, (err, result) =>
-                  page.close()
-                  ph.exit()
-                  callback err, result
+                @includeMethods page, () =>
+                  task.callback null, page, @, (err, result) =>
+                    page.close()
+                    ph.exit()
+                    callback err, result
       , @options.wait
     , @options.concurrency
 
