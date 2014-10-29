@@ -28,7 +28,9 @@ module.exports = class BrowserScraper
             callback(status) if status isnt 'success'
             page.includeJs 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js', () =>
             @includeMethods page, () =>
-              task.callback null, page, @, callback
+              task.callback null, page, @, (err, result) =>
+                page.close()
+                callback err, result
       , @options.wait
     , @options.concurrency
 
