@@ -7,9 +7,13 @@ module.exports =
     return callback(err) if err
     page.evaluate () ->
       window.clickEvent $("span:contains('Publication Archive')[unselectable!='on']").get(0)
-      return $("a[href*='citation.cfm']")
     , (result) ->
-      console.log result.length
-      # _.each result, (link) ->
-      #   scraper.qlink link, tableOfContents.callback
-      callback()
+      setTimeout () ->
+        page.evaluate () ->
+          return $("a[href*='citation.cfm']")
+        , (result) ->
+          console.log result.length
+          # _.each result, (link) ->
+          #   scraper.qlink link, tableOfContents.callback
+          callback()
+      , 1000
