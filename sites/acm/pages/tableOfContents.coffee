@@ -1,5 +1,6 @@
-abstract = require './abstract'
 _ = require 'underscore'
+
+Scrape = require '../../../db/scrape.coffee'
 
 module.exports = 
   callback: (err, page, scraper, callback) ->
