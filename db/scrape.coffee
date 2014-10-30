@@ -11,7 +11,7 @@ ScrapeSchema = new Schema
     date: 
       type: Date
       default: Date.now
-    results: Mixed
+    results: Schema.Types.Mixed
   ]
 
 module.exports = mongoose.model 'Scrape', ScrapeSchema
