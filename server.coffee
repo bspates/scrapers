@@ -13,7 +13,7 @@ app = express()
 app.use bodyParser()
 
 app.use (req, res, next) ->
-  unless req.body.key is 'woot'
+  unless req.headers.key is 'woot'
     return res.json
       success: false
       result: {}
