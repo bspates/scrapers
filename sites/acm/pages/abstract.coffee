@@ -3,10 +3,14 @@ Scrape = require '../../../db/scrape.coffee'
 module.exports =
   callback: (err, page, scraper, callback) ->
     page.evaluate () ->
+      res = 
+        dom: null
+        results: null
       if $("td.on").text() is 'Abstract'
-        return $.trim $("div.x-tabs-body div#abstract par").text()
+        res.results = $.trim $("div.x-tabs-body div#abstract par").text()
       else 
-        return null
+        res.dom = $('body').text()
+      res
     , (result) ->
       if result
         Scrape.update 
@@ -15,8 +19,10 @@ module.exports =
           $push:
             pages:
               name: 'abstract'
-              results: result
+              results: result.results
+              dom: result.dom
         , (err) ->
           callback err
       else 
+        console.log 'nope'
         callback()

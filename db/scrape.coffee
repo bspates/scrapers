@@ -8,6 +8,7 @@ ScrapeSchema = new Schema
     default: 'in progress'
   pages: [
     name: String
+    dom: String
     date: 
       type: Date
       default: Date.now
