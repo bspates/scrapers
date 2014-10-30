@@ -17,6 +17,8 @@ module.exports =
           volume = $("p:contains('Volume')")
           res.volume = volume.text()
           abstracts = $(volume).siblings('table').find('p, par')
+          if abstracts.length is 0 
+            abstracts = $(volume).siblings('table').find("span[id*='toHide']")
           res.count = abstracts.length
           res.abstracts = abstracts.text()
           res
