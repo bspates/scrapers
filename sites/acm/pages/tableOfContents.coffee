@@ -16,7 +16,7 @@ module.exports =
             count: null
           volume = $("p:contains('Volume')")
           res.volume = volume.text()
-          abstracts = $(volume).siblings('table').find('p')
+          abstracts = $(volume).siblings('table').find('p, par')
           res.count = abstracts.length
           res.abstracts = abstracts.text()
           res
