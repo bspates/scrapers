@@ -37,7 +37,7 @@ module.exports = class BrowserScraper
     @requestQ.drain = () =>
       console.log 'queue empty phantom exiting'
       Scrape.update 
-        _id: scraper.id
+        _id: @id
       , $set:
           status: 'complete'
       , (err, result) ->
