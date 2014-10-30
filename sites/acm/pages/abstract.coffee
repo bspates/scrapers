@@ -4,7 +4,7 @@ module.exports =
   callback: (err, page, scraper, callback) ->
     page.evaluate () ->
       if $("td.on").text() is 'Abstract'
-        return $.trim $("div.x-tabs-body").text()
+        return $.trim $("div.x-tabs-body div#abstract par").text()
       else 
         return null
     , (result) ->
