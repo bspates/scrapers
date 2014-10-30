@@ -9,13 +9,29 @@ module.exports =
     , (result) ->
       setTimeout () ->
         page.evaluate () ->
-          res = []
-          $("a[href*='citation.cfm?']").each (i, element) ->
-            res.push element.getAttribute 'href'
-          return res
+          res =
+            volume: null
+            abstracts: null
+            count: null
+          volume = $("p:contains('Volume')")
+          res.volume = volume.text()
+          abstracts = $(volume).siblings('table').find('p')
+          res.count = abstracts.length
+          res.abstracts = abstracts.text()
+          res
         , (result) ->
-          _.each result, (link) -> 
-            scraper.qlink link, abstract.callback
-          callback()
-      , 1000
+          if result
+            Scrape.update 
+              _id: scraper.id
+            , 
+              $push:
+                pages:
+                  name: 'table of contents of: ' + result.volume
+                  abstracts: result.abstracts
+                  count: result.count
+            , (err) ->
+              callback err
+          else 
+            callback()
+      , 2000
      
