@@ -10,10 +10,13 @@ module.exports =
     , (result) ->
       setTimeout () ->
         page.evaluate () ->
-          return $("a[href*='citation.cfm']")
+          res = []
+          $("a[href*='citation.cfm']").each (i, element) ->
+            res.push element.getAttribute 'href'
+          res
         , (result) ->
           console.log result.length
-          # _.each result, (link) ->
-          #   scraper.qlink link, tableOfContents.callback
+          _.each result, (link) ->
+            scraper.qlink link, tableOfContents.callback
           callback()
-      , 1000
+      , 2000
