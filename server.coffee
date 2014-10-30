@@ -12,6 +12,13 @@ mongoose.connect process.env.DATABASE_URL
 app = express()
 app.use bodyParser()
 
+app.use (req, res, next) ->
+  unless req.body.key is 'woot'
+    return res.json
+      success: false
+      result: {}
+      message: 'invalid key'
+  next()
 
 app.get '/', (req, res) ->
   res.json
