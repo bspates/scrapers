@@ -28,8 +28,9 @@ module.exports =
               $push:
                 pages:
                   name: 'table of contents of: ' + result.volume
-                  abstracts: result.abstracts
-                  count: result.count
+                  results:
+                    abstracts: result.abstracts
+                    count: result.count
             , (err) ->
               callback err
           else 

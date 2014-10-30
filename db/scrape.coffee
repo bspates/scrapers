@@ -8,11 +8,10 @@ ScrapeSchema = new Schema
     default: 'in progress'
   pages: [
     name: String
-    dom: String
     date: 
       type: Date
       default: Date.now
-    results: String
+    results: Mixed
   ]
 
 module.exports = mongoose.model 'Scrape', ScrapeSchema
