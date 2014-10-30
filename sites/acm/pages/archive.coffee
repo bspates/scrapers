@@ -8,11 +8,11 @@ module.exports =
     page.evaluate () ->
       window.clickEvent $("span:contains('Publication Archive')[unselectable!='on']").get(0)
       res = []
-      $("a[href='citation.cfm']").each (i, element) ->
+      $("a[href*='citation.cfm']").each (i, element) ->
         res.push element.getAttribute 'href'
       return res
     , (result) ->
-      console.log result
+      console.log result.length
       _.each result, (link) ->
         scraper.qlink link, tableOfContents.callback
       callback()
