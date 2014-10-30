@@ -12,7 +12,7 @@ module.exports =
         res.push element.getAttribute 'href'
       return res
     , (result) ->
-      console.log res
+      console.log result
       _.each result, (link) ->
         scraper.qlink link, tableOfContents.callback
       callback()
