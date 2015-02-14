@@ -1,8 +1,9 @@
 _ = require 'underscore'
+Scrape = require '../../../db/scrape.coffee'
+
 module.exports =
   callback: (err, page, scraper, callback) ->
     return callback(err) if err
-    console.log 'article'
     page.evaluate () ->
       if $("span:contains('Abstract')").parent().parent().hasClass("on")
         return 'Abstract'
@@ -30,7 +31,7 @@ module.exports =
         when 'Abstract'
           runOne = abstract
           runTwo = categories
-          changeTab = 'Index Terms'
+          changeTab = 'Index Terms' 
         when 'Index Terms'
           runOne = categories
           runTwo = abstract
@@ -40,15 +41,14 @@ module.exports =
         else 
           return callback 'no page'
 
+      changeTab = -> window.clickEvent $("span:contains('#{changeTab}')[unselectable!='on']").get(0)
+
       page.evaluate runOne, (resOne) ->
-        page.evaluate () ->
-          window.clickEvent $("span:contains('#{changeTab}')[unselectable!='on']").get(0)
-        , () ->
+        page.evaluate changeTab, () ->
           setTimeout () ->
             page.evaluate runTwo, (resTwo) ->
-              results = _.merge resOne, resTwo
+              results = _.extend resOne, resTwo
               return callback() unless results.abstract
-              console.log 'saving result for ' + results.title
               Scrape.update 
                   _id: scraper.id
                 , 
@@ -59,7 +59,6 @@ module.exports =
                         abstracts: results.abstract
                         categories: results.categories
                 , (err) ->
-
                   callback err
           , 2000
 

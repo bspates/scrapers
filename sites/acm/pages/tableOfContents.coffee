@@ -1,6 +1,5 @@
 _ = require 'underscore'
 article = require './article'
-Scrape = require '../../../db/scrape.coffee'
 
 module.exports = 
   callback: (err, page, scraper, callback) ->
