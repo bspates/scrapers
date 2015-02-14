@@ -6,7 +6,7 @@
     "coffee-script": "latest",
     "express": "latest",
     "mongoose": "latest",
-    "phantom": "0.6.6",
+    "phantom": "latest",
     "phantomjs": "latest",
     "shortid": "latest",
     "underscore": "latest",
