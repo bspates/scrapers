@@ -1,16 +1,5 @@
 _ = require 'underscore'
-module.exports = 
-  abstract: () ->
-    {abstract: $("div#abstract").text(), title: $("#divmain").find("h1").text()}
-
-  categories: () ->
-    results = []
-    $("a[class*='boxed']").parent().each (i, element) ->
-      results.push 
-        category: element.textContent
-        weight: element.getAttribute 'style'
-    {categories: results}
-
+module.exports =
   callback: (err, page, scraper, callback) ->
     return callback(err) if err
     console.log 'article'
@@ -23,20 +12,34 @@ module.exports =
         return 'error'
       
     , (res) ->
+      categories =  () ->
+        results = []
+        $("a[class*='boxed']").parent().each (i, element) ->
+          results.push 
+            category: element.textContent
+            weight: element.getAttribute 'style'
+        {categories: results}
+
+      abstract = () ->
+        {abstract: $("div#abstract").text(), title: $("#divmain").find("h1").text()}
+
       runOne = null
       runTwo = null
       changeTab = null
       switch res
         when 'Abstract'
-          runOne = @abstract
-          runTwo = @categories
+          runOne = abstract
+          runTwo = categories
           changeTab = 'Index Terms'
         when 'Index Terms'
-          runOne = @categories
-          runTwo = @abstract
+          runOne = categories
+          runTwo = abstract
           changeTab = 'Abstract'
         when 'error'
           return callback 'bad page'
+        else 
+          return callback 'no page'
+
       page.evaluate runOne, (resOne) ->
         page.evaluate () ->
           window.clickEvent $("span:contains('#{changeTab}')[unselectable!='on']").get(0)
