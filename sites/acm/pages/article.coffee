@@ -1,24 +1,23 @@
-abstract = () ->
-  {abstract: $("div#abstract").text(), title: $("#divmain").find("h1").text()}
-
-categories = () ->
-  results = []
-  $("a[class*='boxed']").parent().each (i, element) ->
-    results.push 
-      category: element.textContent
-      weight: element.getAttribute 'style'
-  {categories: results}
-
-whichTab = (title) ->
-  $("span:contains('#{title}')").parent().parent().hasClass("on")
-
+_ = require 'underscore'
 module.exports = 
+  abstract: () ->
+    {abstract: $("div#abstract").text(), title: $("#divmain").find("h1").text()}
+
+  categories: () ->
+    results = []
+    $("a[class*='boxed']").parent().each (i, element) ->
+      results.push 
+        category: element.textContent
+        weight: element.getAttribute 'style'
+    {categories: results}
+
   callback: (err, page, scraper, callback) ->
     return callback(err) if err
+    console.log 'article'
     page.evaluate () ->
-      if whichTab 'Abstract'
+      if $("span:contains('Abstract')").parent().parent().hasClass("on")
         return 'Abstract'
-      else if whichTab 'Index Terms'
+      else if $("span:contains('Search Terms')").parent().parent().hasClass("on")
         return 'Index Terms'
       else 
         return 'error'
@@ -29,15 +28,15 @@ module.exports =
       changeTab = null
       switch res
         when 'Abstract'
-          runOne = abstract
-          runTwo = categories
+          runOne = @abstract
+          runTwo = @categories
           changeTab = 'Index Terms'
         when 'Index Terms'
-          runOne = categories
-          runTwo = abstract
+          runOne = @categories
+          runTwo = @abstract
           changeTab = 'Abstract'
         when 'error'
-          callback 'bad page'
+          return callback 'bad page'
       page.evaluate runOne, (resOne) ->
         page.evaluate () ->
           window.clickEvent $("span:contains('#{changeTab}')[unselectable!='on']").get(0)
@@ -46,6 +45,7 @@ module.exports =
             page.evaluate runTwo, (resTwo) ->
               results = _.merge resOne, resTwo
               return callback() unless results.abstract
+              console.log 'saving result for ' + results.title
               Scrape.update 
                   _id: scraper.id
                 , 
