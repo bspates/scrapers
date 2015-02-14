@@ -89,3 +89,4 @@ module.exports = class BrowserScraper
       url: url
       callback: callback
     , @handle
+

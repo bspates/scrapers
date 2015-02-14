@@ -1,14 +1,15 @@
 {
   "dependencies": {
     "async": "latest",
-    "phantom": "0.6.6",
-    "phantomjs": "latest",
-    "underscore": "latest",
-    "underscore.string": "^2.3.3",
+    "body-parser": "latest",
+    "clicker": "0.0.2",
     "coffee-script": "latest",
-    "shortid": "latest",
     "express": "latest",
     "mongoose": "latest",
-    "body-parser": "latest"
+    "phantom": "0.6.6",
+    "phantomjs": "latest",
+    "shortid": "latest",
+    "underscore": "latest",
+    "underscore.string": "^2.3.3"
   }
 }

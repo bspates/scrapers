@@ -1,5 +1,5 @@
 _ = require 'underscore'
-
+article = require './article'
 Scrape = require '../../../db/scrape.coffee'
 
 module.exports = 
@@ -10,31 +10,20 @@ module.exports =
     , (result) ->
       setTimeout () ->
         page.evaluate () ->
-          res =
+          res = 
             volume: null
-            abstracts: null
-            count: null
+            links: []
           volume = $("p:contains('Volume')")
           res.volume = volume.text()
-          abstracts = $(volume).siblings('table').find('p, par')
-          if abstracts.length is 0 
-            abstracts = $(volume).siblings('table').find("span[id*='toHide']")
-          res.count = abstracts.length
-          res.abstracts = abstracts.text()
+          abstracts = $(volume).siblings('table').find("a[href*='citation.cfm']").each (i, element) ->
+            res.links.push element.getAttribute 'href'
           res
         , (result) ->
-          if result
-            Scrape.update 
-              _id: scraper.id
-            , 
-              $push:
-                pages:
-                  name: 'table of contents of: ' + result.volume
-                  results:
-                    abstracts: result.abstracts
-                    count: result.count
-            , (err) ->
-              callback err
+          if result 
+            for link in result.links
+              scraper.qlink link, article.callback
+                
+            callback()
           else 
             callback()
       , 2000
