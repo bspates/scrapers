@@ -31,17 +31,15 @@ module.exports =
         when 'Abstract'
           runOne = abstract
           runTwo = categories
-          changeTab = 'Index Terms' 
+          changeTab = -> window.clickEvent $("span:contains('Index Terms')[unselectable!='on']").get(0)
         when 'Index Terms'
           runOne = categories
           runTwo = abstract
-          changeTab = 'Abstract'
+          changeTab = -> window.clickEvent $("span:contains('Abstract')[unselectable!='on']").get(0)
         when 'error'
           return callback 'bad page'
         else 
           return callback 'no page'
-
-      changeTab = -> window.clickEvent $("span:contains('#{changeTab}')[unselectable!='on']").get(0)
 
       page.evaluate runOne, (resOne) ->
         page.evaluate changeTab, () ->

@@ -21,7 +21,6 @@ module.exports =
           if result 
             for link in result.links
               scraper.qlink link, article.callback
-                
             callback()
           else 
             callback()
