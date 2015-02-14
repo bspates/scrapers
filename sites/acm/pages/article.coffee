@@ -37,7 +37,8 @@ module.exports =
           runTwo = abstract
           changeTab = -> window.clickEvent $("span:contains('Abstract')[unselectable!='on']").get(0)
         when 'error'
-          return callback 'bad page'
+          console.log 'page has no abstract or index terms'
+          return callback()
         else 
           return callback 'no page'
 
